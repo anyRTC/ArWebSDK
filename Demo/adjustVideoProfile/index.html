@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Display Call Stats -- ArRTC</title>
+  <title>Adjust Video Profile -- anyrtc</title>
   <link rel="stylesheet" href="../assets/bootstrap.min.css">
   <link rel="stylesheet" href="./index.css">
 </head>
 <body>
   <div class="container-fluid banner">
-    <p class="banner-text">Display Call Stats</p>
+    <p class="banner-text">Adjust Video Profile</p>
   </div>
 
   <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -43,21 +43,24 @@
           </div>
       </div>
 
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Video Profiles</button>
+          <div class="profile-list dropdown-menu"></div>
+        </div>
+        <input type="text" class="profile-input form-control" aria-label="Text input with dropdown button" readonly>
+      </div>
+
       <div class="button-group">
         <button id="join" type="submit" class="btn btn-primary btn-sm">Join</button>
         <button id="leave" type="button" class="btn btn-primary btn-sm" disabled>Leave</button>
       </div>
     </form>
 
-    <div id="client-stats" class="stats"></div>
-
     <div class="row video-group">
       <div class="col">
         <p id="local-player-name" class="player-name"></p>
-        <div class="player-with-stats">
-          <div id="local-player" class="player"></div>
-          <div id="local-stats" class="stream-stats stats"></div>
-        </div>
+        <div id="local-player" class="player"></div>
       </div>
       <div class="w-100"></div>
       <div class="col">
@@ -69,6 +72,6 @@
   <script src="../assets/jquery-3.4.1.min.js"></script>
   <script src="../assets/bootstrap.bundle.min.js"></script>
   <script src="https://ardw.anyrtc.io/sdk/web/ArRTC%40latest.js"></script>
-  <script src="./displayCallStats.js"></script>
+  <script src="./adjustVideoProfile.js"></script>
 </body>
 </html>

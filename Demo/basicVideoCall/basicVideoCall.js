@@ -1,14 +1,15 @@
-var client; // RTC client
+var client; // Agora client
 var localTracks = {
   videoTrack: null,
   audioTrack: null
 };
 var remoteUsers = {};
-// RTC client options
+// ArRTC client options
 var options = {
   appid: null,
   channel: null,
-  uid: null,
+  // uid: null,
+  uid: "web_" + Math.random().toString(16).substr(2).toLowerCase(),
   token: null
 };
 
@@ -34,11 +35,15 @@ $("#join-form").submit(async function (e) {
     options.token = $("#token").val();
     options.channel = $("#channel").val();
     await join();
+    if(options.token) {
+      $("#success-alert-with-token").css("display", "block");
+    } else {
+      $("#success-alert a").attr("href", `index.html?appid=${options.appid}&channel=${options.channel}&token=${options.token}`);
+      $("#success-alert").css("display", "block");
+    }
   } catch (error) {
     console.error(error);
   } finally {
-    $("#success-alert a").attr("href", `index.html?appid=${options.appid}&channel=${options.channel}&token=${options.token}`);
-    $("#success-alert").css("display", "block");
     $("#leave").attr("disabled", false);
   }
 })
@@ -48,7 +53,7 @@ $("#leave").click(function (e) {
 })
 
 async function join() {
-  // create RTC client
+  // create ArRTC client
   client = ArRTC.createClient({ mode: "rtc", codec: "h264" });
 
   // add event listener to play remote tracks when remote user publishs.
@@ -56,12 +61,21 @@ async function join() {
   client.on("user-unpublished", handleUserUnpublished);
 
   // join a channel and create local tracks, we can use Promise.all to run them concurrently
-  [ options.uid, localTracks.audioTrack, localTracks.videoTrack ] = await Promise.all([
+  [ options.uid, [localTracks.audioTrack, localTracks.videoTrack] ] = await Promise.all([
     // join the channel
     client.join(options.appid, options.channel, options.token || null),
     // create local tracks, using microphone and camera
-    ArRTC.createMicrophoneAudioTrack(),
-    ArRTC.createCameraVideoTrack()
+    ArRTC.createMicrophoneAndCameraTracks({}, {
+      encoderConfig: {
+        bitrateMax: 2048,
+        bitrateMin: 1024,
+        // bitrateMax: 500,
+        // bitrateMin: 300,
+        frameRate: 15,
+        width: 320,
+        height: 240,
+      }
+    }),
   ]);
   
   // play local video track
@@ -96,26 +110,30 @@ async function leave() {
   console.log("client leaves channel success");
 }
 
-async function subscribe(user) {
+async function subscribe(user, mediaType) {
   const uid = user.uid;
   // subscribe to a remote user
-  await client.subscribe(user, "all");
+  await client.subscribe(user, mediaType);
   console.log("subscribe success");
-  const player = $(`
-    <div id="player-wrapper-${uid}">
-      <p class="player-name">remoteUser(${uid})</p>
-      <div id="player-${uid}" class="player"></div>
-    </div>
-  `);
-  $("#remote-playerlist").append(player);
-  user.videoTrack.play(`player-${uid}`);
-  user.audioTrack.play();
+  if (mediaType === 'video') {
+    const player = $(`
+      <div id="player-wrapper-${uid}">
+        <p class="player-name">remoteUser(${uid})</p>
+        <div id="player-${uid}" class="player"></div>
+      </div>
+    `);
+    $("#remote-playerlist").append(player);
+    user.videoTrack.play(`player-${uid}`);
+  }
+  if (mediaType === 'audio') {
+    user.audioTrack.play();
+  }
 }
 
-function handleUserPublished(user) {
+function handleUserPublished(user, mediaType) {
   const id = user.uid;
   remoteUsers[id] = user;
-  subscribe(user);
+  subscribe(user, mediaType);
 }
 
 function handleUserUnpublished(user) {
