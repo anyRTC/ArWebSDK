@@ -10,7 +10,7 @@ labels: 'bug, needs triage'
 
 ## 复现步骤
 
-(请在这里具体描述您的复现步骤:)
+(请在这里具体描述你的复现步骤:)
 
 1. 步骤 1...
 2. 步骤 2...
@@ -18,7 +18,7 @@ labels: 'bug, needs triage'
 
 ## 预期行为
 
-(请告诉我您的预期行为是什么？)
+(请告诉我你的预期行为是什么？)
 
 ## 实际现象
 
@@ -38,7 +38,7 @@ labels: 'bug, needs triage'
 
 ## 提供简单的demo
 
-(您可以提供一个简单的demo，或者github仓库、代码片段、浏览器错误截图等)
+(你可以提供一个简单的demo，或者github仓库、代码片段、浏览器错误截图等)
 
 <!--
   What happens if you skip this step?
