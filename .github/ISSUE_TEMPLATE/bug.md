@@ -1,6 +1,6 @@
 ---
 name: 🐛 Bug 上报
-about: 提交bug帮助我们完善SDK
+about: 干得漂亮，你是一个优秀的BUG猎手
 labels: 'bug, needs triage'
 ---
 
