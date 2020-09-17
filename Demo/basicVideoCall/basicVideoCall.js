@@ -1,4 +1,4 @@
-var client; // Agora client
+var client; // client
 var localTracks = {
   videoTrack: null,
   audioTrack: null
