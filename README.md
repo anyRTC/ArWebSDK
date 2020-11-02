@@ -13,7 +13,7 @@ npm install ar-rtc-sdk --save
 We provide some basic demos. For the online website, check out [here](https://github.com/anyRTC/ArRTCWebSDK/demo/). For the source code, check out [here](./Demo).
 
 
-> If you have some problems when using the anyrtc Web SDK NG, or have any suggestions, you can post new issue in this repo and we will reply as soon as possoble.
+> If you have some problems when using the anyrtc Web SDK, or have any suggestions, you can post new issue in this repo and we will reply as soon as possoble.
 
 ## Overview
 
