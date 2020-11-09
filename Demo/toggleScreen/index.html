@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Toggle screen -- anyrtc</title>
+  <link rel="stylesheet" href="../assets/bootstrap.min.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div class="container-fluid banner">
+        <p class="banner-text">Toggle screen</p>
+    </div>
+    <div class='container'>
+        <div>
+            <p class='instructions'>To switch the size of the play container, click here</p>
+            <button id="switch" type="submit" class="btn btn-primary btn-sm join">switch</button>
+        </div>
+        <div class='player'>
+            <div id='big'></div>
+            <div id='small'></div>
+        </div>
+    </div>
+    <script src="../assets/jquery-3.4.1.min.js"></script>
+    <script src="../assets/bootstrap.bundle.min.js"></script>
+    <script src="https://ardw.anyrtc.io/sdk/web/ArRTC%40latest.js"></script>
+    <script src="./ToggleScreen.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+.banner {
+  padding: 0;
+  background-color: #52575c;
+  color: white;
+}
+  
+.banner-text {
+  padding: 8px 20px;
+  margin: 0;
+}
+
+.box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.join {
+  margin-left: 20px;
+}
+  
+.container {
+  margin-top:50px;
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  justify-content: center;
+}
+
+.instructions {
+  display: inline-block;
+}
+
+#player {
+  width:700px;
+  height:600px;
+  border:10px solid #ccc;
+  border-radius: 6px;
+}
+
+.screenshots {
+  width:400px;
+  height:300px;
+  border:10px solid #ccc;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.imgBox {
+  margin-left:50px;
+  height:370px;
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+ 

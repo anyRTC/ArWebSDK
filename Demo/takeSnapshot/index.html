@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Take snapshot -- anyrtc</title>
+  <link rel="stylesheet" href="../assets/bootstrap.min.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div class="container-fluid banner">
+        <p class="banner-text">Take snapshot</p>
+    </div>
+    <div class='container'>
+        <div>
+            <p class='instructions'>Captures the current frame of the current video</p>
+            <button id="screenshots" type="submit" class="btn btn-primary btn-sm join">Take snapshot</button>
+        </div>
+        <div class='box'>
+            <div id='player'></div>
+            <div class='imgBox'  id='imgBox'>
+                <img class='screenshots' src="" alt="">
+                <button id="download" type="submit" class="btn btn-primary btn-sm join">Download</button>
+            </div>
+        </div>
+
+    </div>
+    <script src="../assets/jquery-3.4.1.min.js"></script>
+    <script src="../assets/bootstrap.bundle.min.js"></script>
+    <script src="https://ardw.anyrtc.io/sdk/web/ArRTC%40latest.js"></script>
+    <script src="./screenshots.js"></script>
+</body>
+</html>
