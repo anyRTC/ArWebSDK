@@ -1,0 +1,47 @@
+.banner {
+  padding: 0;
+  background-color: #52575c;
+  color: white;
+}
+  
+.banner-text {
+  padding: 8px 20px;
+  margin: 0;
+}
+
+.join {
+  margin-left: 20px;
+}
+  
+.container {
+  margin-top:50px;
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  justify-content: center;
+}
+
+.instructions {
+  display: inline-block;
+}
+
+.player {
+  display: flex;
+  justify-content: space-between;
+  width:1100px;
+}
+
+#big {
+  width:600px;
+  height:500px;
+  border:10px solid #ccc;
+  border-radius: 6px;
+}
+
+#small {
+  width:400px;
+  height:300px;
+  border:10px solid #ccc;
+  border-radius: 6px;
+}
+ 
