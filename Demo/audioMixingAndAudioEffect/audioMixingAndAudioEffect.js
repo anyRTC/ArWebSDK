@@ -205,7 +205,7 @@ async function join() {
   // join a channel and create local tracks, we can use Promise.all to run them concurrently
   [ options.uid, localTracks.audioTrack, localTracks.videoTrack ] = await Promise.all([
     // join the channel
-    client.join(options.appid, options.channel, options.token || null),
+    client.join(options.appid, options.channel, options.token || null, options.uid),
     // create local tracks, using microphone and camera
     ArRTC.createMicrophoneAudioTrack(),
     ArRTC.createCameraVideoTrack()

@@ -82,7 +82,7 @@ async function join() {
   client.on("user-unpublished", handleUserUnpublished);
   
   // join a channel.
-  options.uid = await client.join(options.appid, options.channel, options.token || null);
+  options.uid = await client.join(options.appid, options.channel, options.token || null, options.uid);
 
   if (!localTracks.audioTrack || !localTracks.videoTrack) {
     [ localTracks.audioTrack, localTracks.videoTrack ] = await Promise.all([
