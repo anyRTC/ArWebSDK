@@ -8,8 +8,7 @@ var remoteUsers = {};
 var options = {
   appid: null,
   channel: null,
-  // uid: null,
-  uid: "web_" + Math.random().toString(16).substr(2).toLowerCase(),
+  uid: null,
   token: null
 };
 
