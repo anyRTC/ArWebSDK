@@ -10,7 +10,7 @@ npm install ar-rtc-sdk--save
 
 接入指南和使用文档请访问我们的文档站 https://anyrtc.github.io/ArRTCWebSDK/zh-CN/
 
-接入过程中，你可以在本仓库参考 anyrtc Web SDK 的 [Demo 源码](./Demo)，或者体验 [Demo](https://github.com/anyRTC/ArRTCWebSDK/demo/)
+接入过程中，你可以在本仓库参考 anyrtc Web SDK 的 [Demo 源码](./Demo)，或者体验 [Demo](https://demos.anyrtc.io/Demo/)
 
 > 如果您在接入 anyrtc Web SDK 时遇到问题，或者有任何建议，都可以在本仓库的 Issues 区发帖讨论，我们会尽快处理大家的反馈
 
