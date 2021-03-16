@@ -1,14 +1,23 @@
 .banner {
-  padding: 0;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 16px;
   background-color: #52575c;
   color: white;
-}
-  
-.banner-text {
-  padding: 8px 20px;
-  margin: 0;
+  margin-bottom: 20px;
 }
 
+.github {
+  width: 30px;
+  height: 30px;
+}
+
+.banner-text {
+  margin: 0;
+}
 .join {
   margin-left: 20px;
 }
