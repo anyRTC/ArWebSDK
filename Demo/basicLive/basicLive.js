@@ -68,11 +68,11 @@ async function join() {
   // create RTC client
   client = ArRTC.createClient({ mode: "live", codec: "h264", role: options.role });
 
-  if (options.role === "audience") {
+  // if (options.role === "audience") {
     // add event listener to play remote tracks when remote user publishs.
     client.on("user-published", handleUserPublished);
     client.on("user-unpublished", handleUserUnpublished);
-  }
+  // }
 
   // join the channel
   options.uid = await client.join(options.appid, options.channel, options.token || null, options.uid);
