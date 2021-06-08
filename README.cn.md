@@ -8,7 +8,7 @@ anyrtc Web SDK 是基于 anyrtc Web SDK 开发的下一代 SDK。能实现基于
 npm install ar-rtc-sdk--save
 ```
 
-接入指南和使用文档请访问我们的文档站 https://anyrtc.github.io/ArRTCWebSDK/zh-CN/
+接入指南和使用文档请访问我们的文档站 https://docs.anyrtc.io/cn/Live/api-ref/rtc_web/overview
 
 接入过程中，你可以在本仓库参考 anyrtc Web SDK 的 [Demo 源码](./Demo)，或者体验 [Demo](https://demos.anyrtc.io/Demo/)
 

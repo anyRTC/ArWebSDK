@@ -8,7 +8,7 @@ The anyrtc Web SDK is the next-generation SDK of the current anyrtc Web SDK, ena
 npm install ar-rtc-sdk --save
 ```
 
-[Documentation Website](https://anyrtc.github.io/ArRTCWebSDK)
+[Documentation Website](https://docs.anyrtc.io/cn/Live/api-ref/rtc_web/overview)
 
 We provide some basic demos. For the online website, check out [here](https://github.com/anyRTC/ArRTCWebSDK/demo/). For the source code, check out [here](https://demos.anyrtc.io/Demo/).
 
@@ -17,7 +17,7 @@ We provide some basic demos. For the online website, check out [here](https://gi
 
 ## Overview
 
-For detailed introduction and documentation, please go to  [Documentation Website](https://anyrtc.github.io/ArRTCWebSDK). Here we briefly introduce the features of the anyrtc Web SDK:
+For detailed introduction and documentation, please go to  [Documentation Website](https://docs.anyrtc.io/cn/Live/api-ref/rtc_web/overview). Here we briefly introduce the features of the anyrtc Web SDK:
 
 - Support Typescript
 - Using ES6 Promise
