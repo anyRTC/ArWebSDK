@@ -4,22 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Display Call Stats -- ArRTC</title>
+  <title>Dual Stream -- ArRTC</title>
   <link rel="stylesheet" href="../assets/bootstrap.min.css">
   <link rel="stylesheet" href="./index.css">
 </head>
 <body>
   <div class="container-fluid banner">
-    <p class="banner-text">Display Call Stats</p>
+    <p class="banner-text">Dual Stream</p>
     <div>
-      <a href="https://github.com/anyRTC/ArWebSDK/tree/master/Demo/displayCallStats" target="blank">
-        <img src="../assets/images/GitHub.png" class='github' alt="">
-      </a>
+	    <a href="https://github.com/anyRTC/ArWebSDK/tree/master/Demo/dualStream" target="blank">
+	        <img src="../assets/images/GitHub.png" class='github' alt="">
+	    </a>
     </div>
   </div>
 
   <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Congratulations!</strong><span> You can invite others join this channel by click </span><a href="" target="_blank">here</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div id="success-alert-with-token" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Congratulations!</strong><span> Joined room successfully. </span>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -37,10 +43,12 @@
           <div class="col-sm">
             <p class="join-info-text">AppID</p>
             <input id="appid" type="text" placeholder="enter appid" required>
+            <p class="tips">&nbsp;</p>
           </div>
           <div class="col-sm">
             <p class="join-info-text">Token(optional)</p>
             <input id="token" type="text" placeholder="enter token">
+            <p class="tips">&nbsp;</p>
           </div>
           <div class="col-sm">
             <p class="join-info-text">UserID(optional)</p>
@@ -49,24 +57,26 @@
           <div class="col-sm">
             <p class="join-info-text">Channel</p>
             <input id="channel" type="text" placeholder="enter channel name" required>
+            <p class="tips">&nbsp;</p>
           </div>
       </div>
 
       <div class="button-group">
-        <button id="join" type="submit" class="btn btn-primary btn-sm">Join</button>
+        <button id="join" type="submit" class="btn btn-primary btn-sm">Join with Dual Stream</button>
         <button id="leave" type="button" class="btn btn-primary btn-sm" disabled>Leave</button>
       </div>
     </form>
 
-    <div id="client-stats" class="stats"></div>
+    <div class="row video-group">
+      <div class="col">
+        <b class="tips">点击下方视频窗口，切换大小流。</b>
+      </div>
+    </div>
 
     <div class="row video-group">
       <div class="col">
         <p id="local-player-name" class="player-name"></p>
-        <div class="player-with-stats">
-          <div id="local-player" class="player"></div>
-          <div id="local-stats" class="stream-stats stats"></div>
-        </div>
+        <div id="local-player" class="player"></div>
       </div>
       <div class="w-100"></div>
       <div class="col">
@@ -78,6 +88,6 @@
   <script src="../assets/jquery-3.4.1.min.js"></script>
   <script src="../assets/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/ar-rtc-sdk"></script>
-  <script src="./displayCallStats.js"></script>
+  <script src="./dualStream.js"></script>
 </body>
 </html>

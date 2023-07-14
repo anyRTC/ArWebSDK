@@ -1,0 +1,215 @@
+.banner {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 16px;
+  background-color: #52575c;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.github {
+  width: 30px;
+  height: 30px;
+}
+
+.banner-text {
+  margin: 0;
+}
+
+
+#join-form {
+  margin-top: 10px;
+}
+
+.tips {
+  font-size: 12px;
+  margin-bottom: 2px;
+  color: gray;
+}
+
+.join-info-text {
+  margin-bottom: 2px;
+}
+
+input {
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+.player {
+  width: 480px;
+  height: 320px;
+}
+
+.player-name {
+  margin: 8px 0;
+}
+
+#success-alert, #success-alert-with-token {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .player {
+    width: 320px;
+    height: 240px;
+  }
+}
+/* 配置样式 */
+#configBox {
+  display: flex;
+}
+
+.box {
+  width: 240px;
+}
+
+.box > p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 0px;
+}
+
+.box > input {
+  width: 90%;
+  margin-top: 10px;
+  line-height: 24px;
+  text-indent: 10px;
+  outline:none;
+}
+
+
+/* 按钮样式 */
+#operationBox {
+  display: flex;
+  margin-top: 20px;
+}
+
+
+/* 开关样式 */
+#sliderBox {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  font-size: 14px;
+  color: #666;
+  margin-right: 10px;
+}
+
+#ballBox {
+  width: 40px;
+  height: 18px;
+  border-radius: 11px;
+  position: relative;
+  transition: .3s;
+  border: 2px solid #ccc;
+  box-sizing: content-box;
+}
+
+#ball {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #ddd;
+  transition: .3s;
+}
+
+/* 播放样式 */
+#videoBox {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.video {
+  width: 490px;
+  height: 400px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.state {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  font-size: 12px;
+  overflow-y: auto;
+}
+
+.state div{
+  margin-bottom: 4px;
+}
+
+/* 消息提示样式 */
+#messageBox {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 50px;
+  margin: auto;
+  width: 350px;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 20px;
+  margin-bottom: 18px;
+  height: 50px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+  transition: .4s;
+}
+
+.message img {
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+}
+
+.message p {
+  margin-bottom: 0px;
+  font-size: 14px;
+}
+
+.success {
+  background-color: #F0F9EB;
+  color: #67C23A;
+  border: 1px solid #E1F3D8;
+}
+
+.error {
+  background-color: #FEF0F0;
+  color: #F56C6C;
+  border: 1px solid #FDE4E4;
+}
+
+.error img, .prompt img {
+  width: 18px;
+  height: 18px;
+}
+
+.prompt {
+  background-color: #b0e4fa;
+  color: #02A7F0;
+  border: 1px solid #8ed8f8;
+}

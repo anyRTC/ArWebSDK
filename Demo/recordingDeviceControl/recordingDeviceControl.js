@@ -8,7 +8,7 @@ var remoteUsers = {};
 var options = {
   appid: null,
   channel: null,
-  uid: "web" + Math.random().toString(16).substr(2).toLowerCase(),
+  uid: null,
   token: null
 };
 
@@ -32,6 +32,7 @@ $(async () => {
   var urlParams = new URL(location.href).searchParams;
   options.appid = urlParams.get("appid");
   options.channel = urlParams.get("channel");
+  options.uid = urlParams.get("uid");
   options.token = urlParams.get("token");
   await mediaDeviceTest();
   volumeAnimation = requestAnimationFrame(setVolumeWave);
@@ -44,12 +45,13 @@ $("#join-form").submit(async function (e) {
   try {
     options.appid = $("#appid").val();
     options.token = $("#token").val();
+    options.uid = $("#uid").val();
     options.channel = $("#channel").val();
     await join();
     if(options.token) {
       $("#success-alert-with-token").css("display", "block");
     } else {
-      $("#success-alert a").attr("href", `index.html?appid=${options.appid}&channel=${options.channel}&token=${options.token}`);
+      $("#success-alert a").attr("href", `index.html?appid=${options.appid}&channel=${options.channel}&uid=${options.uid}&token=${options.token}`);
       $("#success-alert").css("display", "block");
     }
   } catch (error) {
@@ -69,6 +71,7 @@ $("#media-device-test").on("hidden.bs.modal", function (e) {
     $("#appid").val(options.appid);
     $("#token").val(options.token);
     $("#channel").val(options.channel);
+    $("#uid").val(options.uid);
     $("#join-form").submit();
   }
 })

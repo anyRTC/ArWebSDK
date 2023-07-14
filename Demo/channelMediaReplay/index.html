@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Channel Media Replay -- ArRTC</title>
+  <link rel="stylesheet" href="../assets/bootstrap.min.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div class="container-fluid banner">
+    <p class="banner-text">Dual Stream</p>
+    <div>
+	    <a href="https://github.com/anyRTC/ArWebSDK/tree/master/Demo/channelMediaReplay" target="blank">
+	        <img src="../assets/images/GitHub.png" class='github' alt="">
+	    </a>
+    </div>
+  </div>
+
+  <div class="container">
+    <form id="join-form">
+      <div class="row join-info-group">
+        <div class="col-sm">
+          <p class="join-info-text">AppID</p>
+          <input id="appid" type="text" value="" placeholder="enter appid" required>
+          <p class="tips">&nbsp;</p>
+        </div>
+        <div class="col-sm">
+          <p class="join-info-text">Token(optional)</p>
+          <input id="token" type="text" placeholder="enter token">
+          <p class="tips">&nbsp;</p>
+        </div>
+          <div class="col-sm">
+            <p class="join-info-text">UserID(optional)</p>
+            <input id="uid" type="text" placeholder="enter userid">
+          </div>
+        <div class="col-sm">
+          <p class="join-info-text">Channel</p>
+          <input id="channel" value="" type="text" placeholder="enter channel name" required>
+          <p class="tips">&nbsp;</p>
+        </div>
+        <div class="col-sm">
+          <p class="join-info-text">Relay To Channel</p>
+          <input id="relayChannel" value="" type="text" placeholder="enter Relay Channel name">
+          <p class="tips">&nbsp;</p>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button id="join" type="submit" class="btn btn-primary btn-sm">Join</button>
+        <button id="leave" type="button" class="btn btn-primary btn-sm" disabled>Leave</button>
+        <button id="start" type="button" class="btn btn-primary btn-sm" disabled>Start</button>
+        <button id="stop" type="button" class="btn btn-primary btn-sm" disabled>Stop</button>
+      </div>
+    </form>
+
+    <div class="row video-group">
+      <div class="col">
+        <p id="local-player-name" class="player-name"></p>
+        <div id="local-player" class="player"></div>
+      </div>
+      <div class="w-100"></div>
+      <div class="col">
+        <div id="remote-playerlist"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/jquery-3.4.1.min.js"></script>
+  <script src="../assets/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/ar-rtc-sdk"></script>
+  <script src="./ChannelMediaReplay.js"></script>
+</body>
+
+</html>

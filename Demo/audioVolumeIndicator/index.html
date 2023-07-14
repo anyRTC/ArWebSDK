@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Display Call Stats -- ArRTC</title>
+  <title>Audio Volume Indicator -- ArRTC</title>
   <link rel="stylesheet" href="../assets/bootstrap.min.css">
   <link rel="stylesheet" href="./index.css">
 </head>
 <body>
   <div class="container-fluid banner">
-    <p class="banner-text">Display Call Stats</p>
+    <p class="banner-text">Audio Volume Indicator</p>
     <div>
-      <a href="https://github.com/anyRTC/ArWebSDK/tree/master/Demo/displayCallStats" target="blank">
+      <a href="https://github.com/anyRTC/ArWebSDK/tree/master/Demo/audioVolumeIndicator" target="blank">
         <img src="../assets/images/GitHub.png" class='github' alt="">
       </a>
     </div>
@@ -37,10 +37,12 @@
           <div class="col-sm">
             <p class="join-info-text">AppID</p>
             <input id="appid" type="text" placeholder="enter appid" required>
+            <p class="tips">&nbsp;</p>
           </div>
           <div class="col-sm">
             <p class="join-info-text">Token(optional)</p>
             <input id="token" type="text" placeholder="enter token">
+            <p class="tips">&nbsp;</p>
           </div>
           <div class="col-sm">
             <p class="join-info-text">UserID(optional)</p>
@@ -49,6 +51,7 @@
           <div class="col-sm">
             <p class="join-info-text">Channel</p>
             <input id="channel" type="text" placeholder="enter channel name" required>
+            <p class="tips">&nbsp;</p>
           </div>
       </div>
 
@@ -57,8 +60,6 @@
         <button id="leave" type="button" class="btn btn-primary btn-sm" disabled>Leave</button>
       </div>
     </form>
-
-    <div id="client-stats" class="stats"></div>
 
     <div class="row video-group">
       <div class="col">
@@ -78,6 +79,6 @@
   <script src="../assets/jquery-3.4.1.min.js"></script>
   <script src="../assets/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/ar-rtc-sdk"></script>
-  <script src="./displayCallStats.js"></script>
+  <script src="./audioVolumeIndicator.js"></script>
 </body>
 </html>

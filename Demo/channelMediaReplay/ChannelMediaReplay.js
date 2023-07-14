@@ -4,33 +4,17 @@ var localTracks = {
   audioTrack: null
 };
 var remoteUsers = {};
-// client options
-var options = { 
+var relayChannelConfiguration = null;
+// ArRTC client options
+var options = {
   appid: null,
   channel: null,
   uid: null,
   token: null
 };
 
-var videoProfiles = [
-  { label: "480p_1", detail: "640×480, 15fps, 500Kbps", value: "480p_1" },
-  { label: "480p_2", detail: "640×480, 30fps, 1000Kbps", value: "480p_2" },
-  { label: "720p_1", detail: "1280×720, 15fps, 1130Kbps", value: "720p_1" },
-  { label: "720p_2", detail: "1280×720, 30fps, 2000Kbps", value: "720p_2" },
-  { label: "1080p_1", detail: "1920×1080, 15fps, 2080Kbps", value: "1080p_1" },
-  { label: "1080p_2", detail: "1920×1080, 30fps, 3000Kbps", value: "1080p_2" },
-  { label: "200×640", detail: "200×640, 30fps", value: { width: 200, height: 640, frameRate: 30 } } // custom video profile
-]
-
-var curVideoProfile;
-
 // the demo can auto join channel with params in url
 $(() => {
-  initVideoProfiles();
-  $(".profile-list").delegate("a", "click", function(e){
-    changeVideoProfile(this.getAttribute("label"));
-  });
-
   var urlParams = new URL(location.href).searchParams;
   options.appid = urlParams.get("appid");
   options.channel = urlParams.get("channel");
@@ -60,6 +44,8 @@ $("#join-form").submit(async function (e) {
       $("#success-alert a").attr("href", `index.html?appid=${options.appid}&channel=${options.channel}&uid=${options.uid}&token=${options.token}`);
       $("#success-alert").css("display", "block");
     }
+    $("#start").attr("disabled", false);
+    $("#stop").attr("disabled", true);
   } catch (error) {
     console.error(error);
   } finally {
@@ -71,30 +57,71 @@ $("#leave").click(function (e) {
   leave();
 })
 
-async function join () {
-  // create client
-  client = ArRTC.createClient({ mode: "rtc", codec: "h264" });
+$("#start").click(async function (e) {
+  if ("" === $("#relayChannel").val()) return;
+  try {
+    var targetChannel = $("#relayChannel").val();
+    relayChannelConfiguration = ArRTC.createChannelMediaRelayConfiguration();
+    relayChannelConfiguration.setSrcChannelInfo({ channelName: options.channel, token: options.token, uid: options.uid });
+    relayChannelConfiguration.addDestChannelInfo({ channelName: targetChannel, token: options.token, uid: options.uid });
+    await client.startChannelMediaRelay(relayChannelConfiguration);
 
-  // add event listener to play remote tracks when remote user publishs.
-  client.on("user-published", handleUserPublished);
-  client.on("user-unpublished", handleUserUnpublished);
+    $("#start").attr("disabled", true);
+    $("#stop").attr("disabled", false);
+  } catch (err) {
+    throw err;
+  }
+});
 
-  // join a channel and create local tracks, we can use Promise.all to run them concurrently
-  [ options.uid, localTracks.audioTrack, localTracks.videoTrack ] = await Promise.all([
-    // join the channel
-    client.join(options.appid, options.channel, options.token || null, options.uid),
-    // create local tracks, using microphone and camera
-    ArRTC.createMicrophoneAudioTrack(),
-    ArRTC.createCameraVideoTrack()
-  ]);
+$("#stop").click(async function (e) {
+  if (relayChannelConfiguration) {
+    await client.stopChannelMediaRelay(relayChannelConfiguration);
+    $("#start").attr("disabled", false);
+    $("#stop").attr("disabled", true);
+  }
+})
 
-  // play local video track
-  localTracks.videoTrack.play("local-player");
-  $("#local-player-name").text(`localVideo(${options.uid})`);
+async function join() {
+  try {
+    // create ArRTC client
+    client = ArRTC.createClient({ mode: "rtc", codec: "h264" });
+    client.on("channel-media-relay-event", (event) => {
+      console.log("channel-media-relay-event", event);
+    });
+    client.on("channel-media-relay-state", (state, code) => {
+      console.log("channel-media-relay-state", state, code);
+    });
+    client.on("connection-state-change", (curState, revState, reason) => {
+      console.log("connection-state-change", curState, revState, reason);
+    });
+    // add event listener to play remote tracks when remote user publishs.
+    client.on("user-published", handleUserPublished);
+    client.on("user-unpublished", handleUserUnpublished);
 
-  // publish local tracks to channel
-  await client.publish(Object.values(localTracks));
-  console.log("publish success");
+    // join a channel and create local tracks, we can use Promise.all to run them concurrently
+    [ options.uid, [localTracks.audioTrack, localTracks.videoTrack] ] = await Promise.all([
+      // join the channel
+      client.join(options.appid, options.channel, options.token || null, options.uid),
+      // create local tracks, using microphone and camera
+      ArRTC.createMicrophoneAndCameraTracks(
+        {
+          encoderConfig: null
+        },
+        {
+          encoderConfig: null
+        }
+      ),
+    ]);
+    
+    // play local video track
+    localTracks.videoTrack.play("local-player");
+    $("#local-player-name").text(`localVideo(${options.uid})`);
+
+    // publish local tracks to channel
+    await client.publish(Object.values(localTracks));
+  } catch(err) {
+    throw err;
+  }
 }
 
 async function leave() {
@@ -140,28 +167,15 @@ async function subscribe(user, mediaType) {
   }
 }
 
-function initVideoProfiles () {
-  videoProfiles.forEach(profile => {
-    $(".profile-list").append(`<a class="dropdown-item" label="${profile.label}" href="#">${profile.label}: ${profile.detail}</a>`)
-  });
-  curVideoProfile = videoProfiles[0];
-  $(".profile-input").val(`${curVideoProfile.detail}`);
-}
-
-async function changeVideoProfile (label) {
-  curVideoProfile = videoProfiles.find(profile => profile.label === label);
-  $(".profile-input").val(`${curVideoProfile.detail}`);
-  // change the local video track`s encoder configuration
-  localTracks.videoTrack && await localTracks.videoTrack.setEncoderConfiguration(curVideoProfile.value);
-}
-
 function handleUserPublished(user, mediaType) {
+  console.log("user-published", user, mediaType);
   const id = user.uid;
   remoteUsers[id] = user;
   subscribe(user, mediaType);
 }
 
-function handleUserUnpublished(user) {
+function handleUserUnpublished(user, mediaType) {
+  console.log("user-unpublished", user, mediaType);
   const id = user.uid;
   delete remoteUsers[id];
   $(`#player-wrapper-${id}`).remove();

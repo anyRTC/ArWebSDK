@@ -1,16 +1,18 @@
-var client; // RTC client
+var client; // client
 var localTracks = {
   videoTrack: null,
   audioTrack: null
 };
 var remoteUsers = {};
-// RTC client options
+// ArRTC client options
 var options = { 
   appid: null,
   channel: null,
-  uid: null,
+  uid: "web" + Math.random().toString(16).substr(2).toLowerCase(),
   token: null
 };
+
+let statsInterval;
 
 // the demo can auto join channel with params in url
 $(() => {
@@ -22,8 +24,8 @@ $(() => {
   if (options.appid && options.channel) {
     $("#appid").val(options.appid);
     $("#token").val(options.token);
-    $("#channel").val(options.channel);
     $("#uid").val(options.uid);
+    $("#channel").val(options.channel);
     $("#join-form").submit();
   }
 })
@@ -55,21 +57,23 @@ $("#leave").click(function (e) {
 })
 
 async function join() {
-  // create RTC client
+  // create ArRTC client
   client = ArRTC.createClient({ mode: "rtc", codec: "h264" });
 
   // add event listener to play remote tracks when remote user publishs.
   client.on("user-published", handleUserPublished);
   client.on("user-unpublished", handleUserUnpublished);
+  client.on("volume-indicator", handleVolumeIndicator);
 
   // join a channel and create local tracks, we can use Promise.all to run them concurrently
-  [ options.uid, localTracks.videoTrack ] = await Promise.all([
+  [ options.uid, localTracks.audioTrack, localTracks.videoTrack ] = await Promise.all([
     // join the channel
-    client.join(options.appid, options.channel, options.token || null, options.uid),
-    // ** create local tracks, using microphone and screen
-    ArRTC.createScreenVideoTrack()
+    client.join(options.appid, options.channel, options.token || null, options.uid, options.uid),
+    // create local tracks, using microphone and camera
+    ArRTC.createMicrophoneAudioTrack(),
+    ArRTC.createCameraVideoTrack()
   ]);
- 
+  
   // play local video track
   localTracks.videoTrack.play("local-player");
   $("#local-player-name").text(`localVideo(${options.uid})`);
@@ -77,6 +81,9 @@ async function join() {
   // publish local tracks to channel
   await client.publish(Object.values(localTracks));
   console.log("publish success");
+
+  // 启用说话者音量提示
+  client.enableAudioVolumeIndicator();
 }
 
 async function leave() {
@@ -107,17 +114,20 @@ async function subscribe(user, mediaType) {
   // subscribe to a remote user
   await client.subscribe(user, mediaType);
   console.log("subscribe success");
-  if (mediaType === 'video') {
+  if (mediaType === "video") {
     const player = $(`
       <div id="player-wrapper-${uid}">
         <p class="player-name">remoteUser(${uid})</p>
-        <div id="player-${uid}" class="player"></div>
+        <div class="player-with-stats">
+          <div id="player-${uid}" class="player"></div>
+          <div class="track-stats stats"></div>
+        </div>
       </div>
     `);
     $("#remote-playerlist").append(player);
     user.videoTrack.play(`player-${uid}`);
   }
-  if (mediaType === 'audio') {
+  if (mediaType === "audio") {
     user.audioTrack.play();
   }
 }
@@ -132,4 +142,17 @@ function handleUserUnpublished(user) {
   const id = user.uid;
   delete remoteUsers[id];
   $(`#player-wrapper-${id}`).remove();
+}
+
+// flush stats views
+function handleVolumeIndicator(result) {
+  result.forEach(function(volume, index){
+    console.log(`${index} UID ${volume.uid} Level ${volume.level}`);
+    // 本地的音量大小
+    if (options.uid === volume.uid) {
+      $("#local-stats").html(`<p class="stats-row">Level: ${volume.level}</p>`);
+    } else {
+      $(`#player-wrapper-${volume.uid} .track-stats`).html(`<p class="stats-row">Level: ${volume.level}</p>`);
+    }
+  });
 }

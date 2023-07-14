@@ -8,7 +8,7 @@ var remoteUsers = {};
 var options = {
   appid: null,
   channel: null,
-  uid: "web" + Math.random().toString(16).substr(2).toLowerCase(),
+  uid: null,
   token: null
 };
 
@@ -17,10 +17,12 @@ $(() => {
   var urlParams = new URL(location.href).searchParams;
   options.appid = urlParams.get("appid");
   options.channel = urlParams.get("channel");
+  options.uid = urlParams.get("uid");
   options.token = urlParams.get("token");
   if (options.appid && options.channel) {
     $("#appid").val(options.appid);
     $("#token").val(options.token);
+    $("#uid").val(options.uid);
     $("#channel").val(options.channel);
     $("#join-form").submit();
   }
@@ -32,12 +34,13 @@ $("#join-form").submit(async function (e) {
   try {
     options.appid = $("#appid").val();
     options.token = $("#token").val();
+    options.uid = $("#uid").val();
     options.channel = $("#channel").val();
     await join();
     if(options.token) {
       $("#success-alert-with-token").css("display", "block");
     } else {
-      $("#success-alert a").attr("href", `index.html?appid=${options.appid}&channel=${options.channel}&token=${options.token}`);
+      $("#success-alert a").attr("href", `index.html?appid=${options.appid}&channel=${options.channel}&uid=${options.uid}&token=${options.token}`);
       $("#success-alert").css("display", "block");
     }
   } catch (error) {

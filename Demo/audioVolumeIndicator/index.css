@@ -1,0 +1,84 @@
+.banner {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 16px;
+  background-color: #52575c;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.github {
+  width: 30px;
+  height: 30px;
+}
+
+.banner-text {
+  margin: 0;
+}
+
+#join-form {
+  margin-top: 10px;
+}
+
+.tips {
+  font-size: 12px;
+  margin-bottom: 2px;
+  color: gray;
+}
+
+.join-info-text {
+  margin-bottom: 2px;
+}
+
+input {
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+.player {
+  width: 480px;
+  height: 320px;
+  margin-right: 10px;
+}
+
+.player-name {
+  margin: 8px 0;
+}
+
+#success-alert, #success-alert-with-token {
+  display: none;
+}
+
+#client-stats {
+  margin-top: 10px;
+}
+
+.stats {
+  color: gray;
+}
+
+.stats-row {
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.player-with-stats {
+  display: flex;
+}
+
+.stream-stats {
+  min-width: 260px;
+}
+
+@media (max-width: 640px) {
+  .player {
+    width: 320px;
+    height: 240px;
+  }
+  .player-with-stats {
+    display: block;
+  }
+}
